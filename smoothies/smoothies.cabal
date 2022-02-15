@@ -53,11 +53,13 @@ test-suite smoothies-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      SmoothPermsTest
       Paths_smoothies
   hs-source-dirs:
       test
   ghc-options: -Wall -Werror -fwarn-incomplete-uni-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      QuickCheck
+    , base >=4.7 && <5
     , smoothies
   default-language: Haskell2010
