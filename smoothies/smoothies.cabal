@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           assign1-cad0p
+name:           smoothies
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/cad0p/assign1-cad0p#readme>
-homepage:       https://github.com/cad0p/assign1-cad0p#readme
-bug-reports:    https://github.com/cad0p/assign1-cad0p/issues
+description:    Please see the README on GitHub at <https://github.com/cad0p/smoothies#readme>
+homepage:       https://github.com/cad0p/smoothies#readme
+bug-reports:    https://github.com/cad0p/smoothies/issues
 author:         Pier Carlo Cadoppi
 maintainer:     p.c.cadoppi@students.uu.nl
 copyright:      2022 Pier Carlo Cadoppi
@@ -21,40 +21,43 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/cad0p/assign1-cad0p
+  location: https://github.com/cad0p/smoothies
 
 library
   exposed-modules:
       Lib
+      SmoothPermsSlow
+      SmoothPermsSlow.Internal
   other-modules:
-      Paths_assign1_cad0p
+      Paths_smoothies
   hs-source-dirs:
       src
+  ghc-options: -Wall -Werror -fwarn-incomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable assign1-cad0p-exe
+executable smoothies-exe
   main-is: Main.hs
   other-modules:
-      Paths_assign1_cad0p
+      Paths_smoothies
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Werror -fwarn-incomplete-uni-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      assign1-cad0p
-    , base >=4.7 && <5
+      base >=4.7 && <5
+    , smoothies
   default-language: Haskell2010
 
-test-suite assign1-cad0p-test
+test-suite smoothies-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_assign1_cad0p
+      Paths_smoothies
   hs-source-dirs:
       test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Werror -fwarn-incomplete-uni-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      assign1-cad0p
-    , base >=4.7 && <5
+      base >=4.7 && <5
+    , smoothies
   default-language: Haskell2010

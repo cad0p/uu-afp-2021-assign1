@@ -1,6 +1,6 @@
-name:                assign1-cad0p
+name:                smoothies
 version:             0.1.0.0
-github:              "cad0p/assign1-cad0p"
+github:              "cad0p/smoothies"
 license:             BSD3
 author:              "Pier Carlo Cadoppi"
 maintainer:          "p.c.cadoppi@students.uu.nl"
@@ -17,32 +17,42 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/cad0p/assign1-cad0p#readme>
+description:         Please see the README on GitHub at <https://github.com/cad0p/smoothies#readme>
 
 dependencies:
 - base >= 4.7 && < 5
 
 library:
   source-dirs: src
+  ghc-options:
+  - -Wall
+  - -Werror
+  - -fwarn-incomplete-uni-patterns
 
 executables:
-  assign1-cad0p-exe:
+  smoothies-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
+    - -Wall
+    - -Werror
+    - -fwarn-incomplete-uni-patterns
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - assign1-cad0p
+    - smoothies
 
 tests:
-  assign1-cad0p-test:
+  smoothies-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
+    - -Wall
+    - -Werror
+    - -fwarn-incomplete-uni-patterns
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - assign1-cad0p
+    - smoothies
