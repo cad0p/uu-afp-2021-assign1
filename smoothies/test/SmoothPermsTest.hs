@@ -4,6 +4,7 @@ import Test.QuickCheck (quickCheck)
 
 -- import SmoothPermsSlow (perms)
 import SmoothPermsSlow.Internal (split)
+import Data.List (sort)
 
 {-| 'splitLength' checks if 'split' produces a list of pairs, of the same length
   of the original 'split' argument 'xs'
@@ -18,13 +19,23 @@ splitLength xs = (length . split) xs == length xs
 splitLengthElems :: [Int] -> Bool
 splitLengthElems xs = splitLengthElem (length xs) (split xs)
 
-
--- -- splitLengthElem :: Int -> [(Int, [Int])] -> Bool
--- splitLengthElem _ [] = True 
--- splitLengthElem n ((_, []) : ys) = (1 == n) && splitLengthElem n ys
--- -- doesn't work, type issue, moving onto a custom generator
--- -- splitLengthElem n (([], y2) : ys) = ((1 + length y2) == n) && splitLengthElem n ys
--- splitLengthElem n ((y1, y2) : ys) = ((length y1 + length y2) == n) && splitLengthElem n ys
+splitLengthElem :: Int -> [(Int, [Int])] -> Bool
+splitLengthElem _ [] = True
+splitLengthElem n (x : xs) = length (fst x : snd x) == n && splitLengthElem n xs
 
 
--- splitElems
+{-| 'splitElems' checks if the elements are the same of the list, for every pair
+-}
+splitElems :: [Int] -> Bool
+splitElems xs = splitElem xs (split xs)
+
+splitElem :: [Int] -> [(Int, [Int])] -> Bool
+splitElem _ [] = True
+splitElem xs (y : ys) = areEqual (fst y : snd y) xs && splitElem xs ys
+
+{-| 
+  https://stackoverflow.com/questions/15319136/how-to-compare-two-lists-in-haskell
+-}
+areEqual :: [Int] -> [Int] -> Bool
+areEqual a b = sort a == sort b
+
