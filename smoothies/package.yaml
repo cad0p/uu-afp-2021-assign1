@@ -57,3 +57,5 @@ tests:
     dependencies:
     - smoothies
     - QuickCheck
+    - tasty
+    - tasty-quickcheck
