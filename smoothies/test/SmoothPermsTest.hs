@@ -1,7 +1,7 @@
 module SmoothPermsTest where
 
 import SmoothPermsSlow
-import SmoothPermsSlow.Internal (split)
+import SmoothPermsSlow.Internal (split, smooth)
 import Data.List (sort)
 
 -- >Internal.hs
@@ -80,3 +80,16 @@ permsElem :: [Int] -> [[Int]] -> Bool
 permsElem _ [] = True
 permsElem xs (y : ys) = areEqual xs y && permsElem xs ys
 
+-- >> smoothPerms
+
+{-| 'smoothPermsAreSmooth' checks if all the permutations of 'smoothPerms' are smooth;
+-}
+smoothPermsAreSmooth :: Int -> [Int] -> Bool
+smoothPermsAreSmooth n xs = smoothPermIsSmooth n (smoothPerms n xs)
+
+smoothPermIsSmooth :: Int -> [[Int]] -> Bool
+smoothPermIsSmooth _ [] = True
+smoothPermIsSmooth n (x : xs) = smooth n x && smoothPermIsSmooth n xs
+
+{-| 'smoothPermsAreAll' checks if 'smoothPerms' outputs all the permutations
+-}
