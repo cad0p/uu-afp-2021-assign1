@@ -5,15 +5,19 @@ import Test.QuickCheck (quickCheck)
 -- import SmoothPermsSlow (perms)
 import SmoothPermsSlow.Internal (split)
 
+{-| 'splitLength' checks if 'split' produces a list of pairs, of the same length
+  of the original 'split' argument 'xs'
+-}
 splitLength :: [a] -> Bool
 splitLength xs = (length . split) xs == length xs
 
--- splitLengthElems :: [a] -> Bool 
--- splitLengthElems xs = all (map (\(a, [b]) -> a : b) (split xs)
+{-| 'splitLengthElems' checks 
+-}
 splitLengthElems
   :: (Foldable t1, Foldable t2) => [(t1 a1, t2 a2)] -> Bool
 splitLengthElems xs = 
   let 
-    splitLengthElemsRec n [] = True 
-    splitLengthElemsRec n (x : xs) = ((length (fst x) + length (snd x)) == n) && splitLengthElemsRec n xs
+    splitLengthElemsRec _ [] = True 
+    splitLengthElemsRec n (y : ys) = ((length (fst y) + length (snd y)) == n) && splitLengthElemsRec n ys
   in splitLengthElemsRec (length xs) (split xs)
+
