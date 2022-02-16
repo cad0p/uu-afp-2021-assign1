@@ -12,12 +12,15 @@ tests :: TestTree
 tests = testGroup "Tests" [properties]
 
 properties :: TestTree
-properties = testGroup "Properties" [qcSplitProps, qcPermsProps]
+properties = testGroup "Properties" [qcProps]
+
+qcProps :: TestTree
+qcProps = testGroup "QuickCheck" [qcSplitProps, qcPermsProps]
 
 
 qcSplitProps :: TestTree
 qcSplitProps = testGroup
-  ("(checked by QuickCheck)\n" ++ "split")
+  "split"
   [ QC.testProperty "splitLength" splitLength
   , QC.testProperty "splitLengthElems" splitLengthElems
   , QC.testProperty "splitElems" splitElems
@@ -27,7 +30,7 @@ qcPermsProps :: TestTree
 qcPermsProps = adjustOption
   (const (QuickCheckMaxSize 10))
   (testGroup
-    ("(checked by QuickCheck)\n" ++ "perms")
+    "perms"
     [ -- https://devtut.github.io/haskell/quickcheck.html#limiting-the-size-of-test-data
       QC.testProperty "permsLength" permsLength
     , QC.testProperty "permsLengthElems" permsLengthElems
