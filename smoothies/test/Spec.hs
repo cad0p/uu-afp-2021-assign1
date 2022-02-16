@@ -19,3 +19,4 @@ main = do
   -- quickCheckWith (stdArgs { maxSize = 10 }) permsUnique
   quickCheckWith (stdArgs { maxSize = 10 }) smoothPermsAreSmooth
   quickCheckWith (stdArgs { maxSize = 10 }) smoothPermsArePerms
+  quickCheckWith (stdArgs { maxSize = 10 }) smoothPermsLength

@@ -111,10 +111,12 @@ smoothPermsArePerms n xs = permsElem xs (smoothPerms n xs)
 
 
 {-| 'smoothPermsAreUnique' checks if 'smoothPerms' outputs unique permutations 
+  EDIT: they could be unique
 -}
 -- smoothPermsAreUnique :: Int -> [Int] -> Bool
 
 {-| 'smoothPermsLength' checks if the length of output 
   is less than the length of the output of 'perms'
 -}
--- smoothPermsLength :: Int -> [Int] -> Bool
+smoothPermsLength :: Int -> [Int] -> Bool
+smoothPermsLength n xs = length (smoothPerms n xs) <= length (perms xs)
