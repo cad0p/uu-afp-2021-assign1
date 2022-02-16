@@ -3,8 +3,8 @@ module SmoothPermsSlow.Internal where
 {-| 'split' generates splits between any element of the list and the rest of the list
 -}
 split
-  :: [a]        -- ^ input list '[a]'
-  -> [(a, [a])] {-^ output list of pairs, 
+  :: [Int]        -- ^ input list
+  -> [(Int, [Int])] {-^ output list of pairs, 
     where the first element is the element that has been split from the list
     and the second element is the rest of the list
   -}

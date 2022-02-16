@@ -11,8 +11,8 @@ import           SmoothPermsSlow.Internal       ( smooth
 {-| 'perms' generates permutations using 'split'
 -}
 perms
-  :: [a]    -- ^ the input list '[a]'
-  -> [[a]]  -- ^ the list of the permutations of '[a]'
+  :: [Int]    -- ^ the input list
+  -> [[Int]]  -- ^ the list of the permutations of input list
 perms [] = [[]]
 perms xs = [ v : p | (v, vs) <- split xs, p <- perms vs ]
 
