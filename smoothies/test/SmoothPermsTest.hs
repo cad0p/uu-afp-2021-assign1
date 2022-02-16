@@ -1,8 +1,4 @@
 module SmoothPermsTest where
-
-import Test.QuickCheck (quickCheck)
-
--- import SmoothPermsSlow (perms)
 import SmoothPermsSlow.Internal (split)
 import Data.List (sort)
 

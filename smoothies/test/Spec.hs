@@ -1,2 +1,10 @@
+import SmoothPermsTest
+
+import Test.QuickCheck (quickCheck)
+
 main :: IO ()
-main = putStrLn "Test suite being implemented"
+main = do
+  quickCheck splitLength
+  quickCheck splitLengthElems
+  quickCheck splitElems
+
