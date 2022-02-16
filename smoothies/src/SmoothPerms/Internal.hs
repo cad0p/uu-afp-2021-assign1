@@ -35,5 +35,5 @@ listToNode xs ys = Node
   , toPerm    = ys
   , children  = [
     listToNode xs' ys' | (xs'', ys') <- split ys
-                       , xs' <- xs'' : xs
+                       , xs' <- [xs'' : xs]
   ]}
