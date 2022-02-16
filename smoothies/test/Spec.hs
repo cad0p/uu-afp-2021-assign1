@@ -26,6 +26,10 @@ qcSplitProps = testGroup
   , QC.testProperty "splitElems" splitElems
   ]
 
+{-| Regarding QuickCheckMaxSize
+  https://cardanoupdates.com/commits/3df1289383266266382bf5a00fe5d8654d913218
+  which substitutes `quickCheckWith (stdArgs { maxSize = 10 }) permsLength`
+-}
 qcPermsProps :: TestTree
 qcPermsProps = adjustOption
   (const (QuickCheckMaxSize 10))
