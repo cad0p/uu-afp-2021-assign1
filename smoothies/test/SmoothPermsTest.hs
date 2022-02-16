@@ -106,12 +106,9 @@ smoothPermIsSmooth n (x : xs) = smooth n x && smoothPermIsSmooth n xs
 
 {-| 'smoothPermsArePerms' checks if 'smoothPerms' outputs correct permutations
 -}
--- smoothPermsArePerms :: Int -> [Int] -> Bool
--- smoothPermsArePerms n xs = smoothPermIsPerm (perms xs) (smoothPerms n xs)
+smoothPermsArePerms :: Int -> [Int] -> Bool
+smoothPermsArePerms n xs = permsElem xs (smoothPerms n xs)
 
--- smoothPermIsPerm :: [[Int]] -> Bool
--- smoothPermIsPerm _ [] = True
--- smoothPermIsPerm xs (y : ys) = 
 
 {-| 'smoothPermsAreUnique' checks if 'smoothPerms' outputs unique permutations 
 -}
