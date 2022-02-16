@@ -48,8 +48,8 @@ areEqual a b = sort a == sort b
 -- >SmoothPermsSlow.hs
 -- >>perms
 
-{-| 'permsLength' checks if all perms have the right length
-  the right length is the length of 'xs'
+{-| 'permsLength' checks if the number of permutations is right
+  the right number of permutations of a set of size n is n!
 -}
 permsLength :: [Int] -> Bool
 permsLength xs = permsCorrectLength xs == (length . perms) xs
@@ -60,10 +60,23 @@ permsLength xs = permsCorrectLength xs == (length . perms) xs
 factorial :: Int -> Int
 factorial n = product [1..n]
 
+{-| 'permsLengthElems' checks if all perms have the right length
+  the right length is the length of 'xs'
+-}
 permsLengthElems :: [Int] -> Bool
 permsLengthElems xs = permsLengthElem (length xs) (perms xs)
 
 permsLengthElem :: Int -> [[Int]] -> Bool
 permsLengthElem _ [] = True
 permsLengthElem n (x : xs) = length x == n && permsLengthElem n xs
+
+{-| 'permsElems' checks if all perms have all the elements
+  compares each permutation with the original list 'xs'
+-}
+permsElems :: [Int] -> Bool
+permsElems xs = permsElem xs (perms xs)
+
+permsElem :: [Int] -> [[Int]] -> Bool
+permsElem _ [] = True
+permsElem xs (y : ys) = areEqual xs y && permsElem xs ys
 
