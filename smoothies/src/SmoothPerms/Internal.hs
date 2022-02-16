@@ -19,7 +19,10 @@ newTree = do
                 , toPerm = [2, 1] }
   print n2
 
-
+{-| 
+  https://www.dcode.fr/permutations-generator
+  This is what the tree looks like
+-}
 listToPermTree :: [Int] -> PermTree
 listToPermTree = listToNode []
 
@@ -37,3 +40,7 @@ listToNode xs ys = Node
     listToNode xs' ys' | (xs'', ys') <- split ys
                        , xs' <- [xs'' : xs]
   ]}
+
+
+permTreeToPerms :: PermTree -> [[Int]]
+permTreeToPerms
