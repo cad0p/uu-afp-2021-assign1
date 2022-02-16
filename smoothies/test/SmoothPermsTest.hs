@@ -16,4 +16,4 @@ splitLengthElems xs =
   let 
     splitLengthElemsRec n [] = True 
     splitLengthElemsRec n (x : xs) = ((length (fst x) + length (snd x)) == n) && splitLengthElemsRec n xs
-  in splitLengthElemsRec (length xs) xs
+  in splitLengthElemsRec (length xs) (split xs)
