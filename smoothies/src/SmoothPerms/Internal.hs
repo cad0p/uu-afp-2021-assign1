@@ -42,5 +42,5 @@ listToNode xs ys = Node
   ]}
 
 
-permTreeToPerms :: PermTree -> [[Int]]
-permTreeToPerms
+-- permTreeToPerms :: PermTree -> [[Int]]
+-- permTreeToPerms
