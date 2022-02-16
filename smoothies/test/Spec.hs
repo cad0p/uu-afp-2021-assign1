@@ -16,3 +16,4 @@ main = do
   quickCheckWith (stdArgs { maxSize = 10 }) permsLength
   quickCheckWith (stdArgs { maxSize = 10 }) permsLengthElems
   quickCheckWith (stdArgs { maxSize = 10 }) permsElems
+  -- quickCheckWith (stdArgs { maxSize = 10 }) permsUnique

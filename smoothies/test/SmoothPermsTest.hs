@@ -53,9 +53,9 @@ areEqual a b = sort a == sort b
 -}
 permsLength :: [Int] -> Bool
 permsLength xs = permsCorrectLength xs == (length . perms) xs
-  where 
-    permsCorrectLength :: [Int] -> Int
-    permsCorrectLength = factorial . length
+
+permsCorrectLength :: [Int] -> Int
+permsCorrectLength = factorial . length
   
 factorial :: Int -> Int
 factorial n = product [1..n]
@@ -80,6 +80,19 @@ permsElem :: [Int] -> [[Int]] -> Bool
 permsElem _ [] = True
 permsElem xs (y : ys) = areEqual xs y && permsElem xs ys
 
+-- {-| 'permsUnique' checks if all the perms are unique
+--   EDIT: how to check for  'perms [-2, -2]'?
+-- -}
+-- permsUnique :: [Int] -> Bool
+-- permsUnique = allDifferent . perms
+
+{-|
+  https://stackoverflow.com/questions/31036474/haskell-checking-if-all-list-elements-are-unique
+-}
+allDifferent :: (Eq a) => [a] -> Bool
+allDifferent []     = True
+allDifferent (x:xs) = x `notElem` xs && allDifferent xs
+
 -- >> smoothPerms
 
 {-| 'smoothPermsAreSmooth' checks if all the permutations of 'smoothPerms' are smooth;
@@ -91,5 +104,20 @@ smoothPermIsSmooth :: Int -> [[Int]] -> Bool
 smoothPermIsSmooth _ [] = True
 smoothPermIsSmooth n (x : xs) = smooth n x && smoothPermIsSmooth n xs
 
-{-| 'smoothPermsAreAll' checks if 'smoothPerms' outputs all the permutations
+{-| 'smoothPermsArePerms' checks if 'smoothPerms' outputs correct permutations
 -}
+-- smoothPermsArePerms :: Int -> [Int] -> Bool
+-- smoothPermsArePerms n xs = smoothPermIsPerm (perms xs) (smoothPerms n xs)
+
+-- smoothPermIsPerm :: [[Int]] -> Bool
+-- smoothPermIsPerm _ [] = True
+-- smoothPermIsPerm xs (y : ys) = 
+
+{-| 'smoothPermsAreUnique' checks if 'smoothPerms' outputs unique permutations 
+-}
+-- smoothPermsAreUnique :: Int -> [Int] -> Bool
+
+{-| 'smoothPermsLength' checks if the length of output 
+  is less than the length of the output of 'perms'
+-}
+-- smoothPermsLength :: Int -> [Int] -> Bool
