@@ -1,6 +1,10 @@
-import SmoothPermsTest
+import           SmoothPermsTest
 
-import Test.QuickCheck (quickCheck)
+import           Test.QuickCheck                ( maxSize
+                                                , quickCheck
+                                                , quickCheckWith
+                                                , stdArgs
+                                                )
 
 main :: IO ()
 main = do
@@ -8,3 +12,6 @@ main = do
   quickCheck splitLengthElems
   quickCheck splitElems
 
+  -- https://devtut.github.io/haskell/quickcheck.html#limiting-the-size-of-test-data
+  quickCheckWith (stdArgs { maxSize = 10 }) permsLength
+  quickCheckWith (stdArgs { maxSize = 10 }) permsLengthElems

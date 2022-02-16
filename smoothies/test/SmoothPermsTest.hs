@@ -1,6 +1,11 @@
 module SmoothPermsTest where
+
+import SmoothPermsSlow
 import SmoothPermsSlow.Internal (split)
 import Data.List (sort)
+
+-- >Internal.hs
+-- >>split
 
 {-| 'splitLength' checks if 'split' produces a list of pairs, of the same length
   of the original 'split' argument 'xs'
@@ -34,4 +39,31 @@ splitElem xs (y : ys) = areEqual (fst y : snd y) xs && splitElem xs ys
 -}
 areEqual :: [Int] -> [Int] -> Bool
 areEqual a b = sort a == sort b
+
+
+-- >>smooth
+-- doesn't need testing
+
+
+-- >SmoothPermsSlow.hs
+-- >>perms
+
+{-| 'permsLength' checks if all perms have the right length
+  the right length is the length of 'xs'
+-}
+permsLength :: [Int] -> Bool
+permsLength xs = permsCorrectLength xs == (length . perms) xs
+  where 
+    permsCorrectLength :: [Int] -> Int
+    permsCorrectLength = factorial . length
+  
+factorial :: Int -> Int
+factorial n = product [1..n]
+
+permsLengthElems :: [Int] -> Bool
+permsLengthElems xs = permsLengthElem (length xs) (perms xs)
+
+permsLengthElem :: Int -> [[Int]] -> Bool
+permsLengthElem _ [] = True
+permsLengthElem n (x : xs) = length x == n && permsLengthElem n xs
 
