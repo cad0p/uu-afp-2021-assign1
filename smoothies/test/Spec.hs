@@ -2,6 +2,8 @@ import           Test.Tasty
 import           Test.Tasty.QuickCheck         as QC
 
 import           SmoothPermsTest
+import qualified SmoothPerms as Fast
+import qualified SmoothPermsSlow as Slow
 
 main :: IO ()
 
@@ -48,9 +50,12 @@ qcSmoothPermsSlowPermsProps = adjustOption
     , QC.testProperty "permsElems" permsElems
   -- quickCheckWith (stdArgs { maxSize = 10 }) permsUnique
   -- does not work because they can be unique
-    , QC.testProperty "smoothPermsAreSmooth" smoothPermsAreSmooth
-    , QC.testProperty "smoothPermsArePerms" smoothPermsArePerms
-    , QC.testProperty "smoothPermsLength" smoothPermsLength
+    , QC.testProperty "smoothPermsAreSmooth" (smoothPermsAreSmooth
+        Slow.smoothPerms)
+    , QC.testProperty "smoothPermsArePerms" (smoothPermsArePerms)
+        -- Slow.smoothPerms)
+    , QC.testProperty "smoothPermsLength" (smoothPermsLength)
+        -- Slow.smoothPerms)
     ]
   )
 
@@ -67,6 +72,7 @@ qcSmoothPermsProps = adjustOption
   (testGroup
     "perms"
     [
-      QC.testProperty "smoothPermsAreSmooth" smoothPermsAreSmooth
+      QC.testProperty "smoothPermsAreSmooth" (smoothPermsAreSmooth 
+        Fast.smoothPerms)
     ]
   )

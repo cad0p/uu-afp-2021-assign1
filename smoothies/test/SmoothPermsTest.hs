@@ -97,8 +97,8 @@ allDifferent (x:xs) = x `notElem` xs && allDifferent xs
 
 {-| 'smoothPermsAreSmooth' checks if all the permutations of 'smoothPerms' are smooth;
 -}
-smoothPermsAreSmooth :: Int -> [Int] -> Bool
-smoothPermsAreSmooth n xs = smoothPermIsSmooth n (smoothPerms n xs)
+smoothPermsAreSmooth :: (Int -> [Int] -> [[Int]]) -> Int -> [Int] -> Bool
+smoothPermsAreSmooth f n xs = smoothPermIsSmooth n (f n xs)
 
 smoothPermIsSmooth :: Int -> [[Int]] -> Bool
 smoothPermIsSmooth _ [] = True
