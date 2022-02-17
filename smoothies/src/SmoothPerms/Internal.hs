@@ -42,5 +42,13 @@ listToNode xs ys = Node
   ]}
 
 
--- permTreeToPerms :: PermTree -> [[Int]]
--- permTreeToPerms
+permTreeToPerms :: PermTree -> [[Int]]
+permTreeToPerms Nil = [[]]
+permTreeToPerms (Node _ _ c) = concat [permTreeToPerms x | x <- c]
+permTreeToPerms (Leaf p _) = [p]
+
+-- {-|
+--   This function should go depth first and when it finds
+--   a leaf it should return it
+-- -}
+-- permTreeToPerm :: [[Int]] -> 
