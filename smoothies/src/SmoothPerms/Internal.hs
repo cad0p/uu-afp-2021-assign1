@@ -10,14 +10,14 @@ data PermTree = Nil
                       , children  :: [PermTree] }
                       deriving Show
 
-newTree = do
-  let n1 = Node { perm    = [1, 2]
-                , toPerm      = []
-                , children  = [] }
-  print n1
-  let n2 = Leaf { perm    = []
-                , toPerm = [2, 1] }
-  print n2
+-- newTree = do
+--   let n1 = Node { perm    = [1, 2]
+--                 , toPerm      = []
+--                 , children  = [] }
+--   print n1
+--   let n2 = Leaf { perm    = []
+--                 , toPerm = [2, 1] }
+--   print n2
 
 {-| 
   https://www.dcode.fr/permutations-generator
@@ -54,4 +54,7 @@ permTreeToPerms :: PermTree -> [[Int]]
 permTreeToPerms Nil = [[]]
 permTreeToPerms (Node _ _ c) = concat [permTreeToPerms x | x <- c]
 permTreeToPerms (Leaf p _) = [p]
+
+
+
 
