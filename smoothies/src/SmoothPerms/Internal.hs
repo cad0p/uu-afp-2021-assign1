@@ -42,13 +42,16 @@ listToNode xs ys = Node
   ]}
 
 
+{-|
+  This function should go depth first and when it finds
+  a leaf it should return it
+
+  Example: (permTreeToPerms . listToPermTree) [1,2]
+  Returns: [[2,1],[1,2]]
+  https://stackoverflow.com/questions/49989439/check-type-of-parameter-in-haskell
+-}
 permTreeToPerms :: PermTree -> [[Int]]
 permTreeToPerms Nil = [[]]
 permTreeToPerms (Node _ _ c) = concat [permTreeToPerms x | x <- c]
 permTreeToPerms (Leaf p _) = [p]
 
--- {-|
---   This function should go depth first and when it finds
---   a leaf it should return it
--- -}
--- permTreeToPerm :: [[Int]] -> 
