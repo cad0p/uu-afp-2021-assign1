@@ -15,11 +15,18 @@ properties :: TestTree
 properties = testGroup "Properties" [qcProps]
 
 qcProps :: TestTree
-qcProps = testGroup "QuickCheck" [qcSplitProps, qcPermsProps]
+qcProps = testGroup "QuickCheck"  [ qcSmoothPermsSlow
+                                  , qcSmoothPerms]
+
+qcSmoothPermsSlow :: TestTree
+qcSmoothPermsSlow = testGroup
+  "SmoothPermsSlow"
+  [ qcSmoothPermsSlowSplitProps
+  , qcSmoothPermsSlowPermsProps ]
 
 
-qcSplitProps :: TestTree
-qcSplitProps = testGroup
+qcSmoothPermsSlowSplitProps :: TestTree
+qcSmoothPermsSlowSplitProps = testGroup
   "split"
   [ QC.testProperty "splitLength" splitLength
   , QC.testProperty "splitLengthElems" splitLengthElems
@@ -30,8 +37,8 @@ qcSplitProps = testGroup
   https://cardanoupdates.com/commits/3df1289383266266382bf5a00fe5d8654d913218
   which substitutes `quickCheckWith (stdArgs { maxSize = 10 }) permsLength`
 -}
-qcPermsProps :: TestTree
-qcPermsProps = adjustOption
+qcSmoothPermsSlowPermsProps :: TestTree
+qcSmoothPermsSlowPermsProps = adjustOption
   (const (QuickCheckMaxSize 10))
   (testGroup
     "perms"
@@ -44,5 +51,22 @@ qcPermsProps = adjustOption
     , QC.testProperty "smoothPermsAreSmooth" smoothPermsAreSmooth
     , QC.testProperty "smoothPermsArePerms" smoothPermsArePerms
     , QC.testProperty "smoothPermsLength" smoothPermsLength
+    ]
+  )
+
+
+qcSmoothPerms :: TestTree
+qcSmoothPerms = testGroup 
+  "SmoothPerms"
+  [ qcSmoothPermsProps ]
+
+
+qcSmoothPermsProps :: TestTree
+qcSmoothPermsProps = adjustOption
+  (const (QuickCheckMaxSize 10))
+  (testGroup
+    "perms"
+    [
+      QC.testProperty "smoothPermsAreSmooth" smoothPermsAreSmooth
     ]
   )
