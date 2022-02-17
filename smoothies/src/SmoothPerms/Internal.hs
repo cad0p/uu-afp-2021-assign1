@@ -1,6 +1,6 @@
 module SmoothPerms.Internal where
 
-import SmoothPermsSlow.Internal (split)
+import SmoothPermsSlow.Internal (split, smooth)
 
 data PermTree = Nil 
               | Leaf  { perm      :: [Int]
@@ -43,7 +43,7 @@ listToNode xs ys = Node
 
 
 {-|
-  This function should go depth first and when it finds
+  'permTreeToPerms' should go depth first and when it finds
   a leaf it should return it
 
   Example: (permTreeToPerms . listToPermTree) [1,2]
@@ -54,6 +54,53 @@ permTreeToPerms :: PermTree -> [[Int]]
 permTreeToPerms Nil = [[]]
 permTreeToPerms (Node _ _ c) = concat [permTreeToPerms x | x <- c]
 permTreeToPerms (Leaf p _) = [p]
+
+
+{-| 'pruneSmooth' leaves only smooth permutations in the tree
+
+  I think we should directly build the tree by not expanding
+  instead of pruning, so I will go this direction.
+-}
+
+
+listToSmoothPermTree :: Int -> [Int] -> PermTree
+listToSmoothPermTree = listToSmoothNode []
+
+listToSmoothNode 
+  :: [Int]    -- ^ perm
+  -> Int      -- ^ 'smooth' parameter n
+  -> [Int]    -- ^ toPerm
+  -> PermTree -- ^ Node or Leaf
+listToSmoothNode xs _ [] = Leaf 
+  { perm    = xs
+  , toPerm  = [] }
+listToSmoothNode [] n ys = Node -- the first split is assumed smooth
+  { perm      = []
+  , toPerm    = ys
+  , children  = [
+    listToSmoothNode xs' n ys' | (xs'', ys') <- split ys
+                       , xs' <- [xs'' : []]
+  ]}
+listToSmoothNode (x : xs) n ys = Node
+  { perm      = x : xs
+  , toPerm    = ys
+  , children  = [
+    listToNode xs' ys' | (xs'', ys') <- smoothSplit n x ys
+                       , xs' <- [xs'' : x : xs]
+  ]}
+
+
+{-| 'smoothSplit' only returns the splits that preserve
+  the smoothess, thus pruning 'PermTree' to make it smooth
+
+  https://stackoverflow.com/questions/1618462/filtering-list-of-tuples
+-}
+smoothSplit
+  :: Int -- ^ 'smooth' parameter n
+  -> Int -- ^ the first element of the 'perm' list
+  -> [Int] -- ^ the argument of 'split'
+  -> [(Int, [Int])] -- ^ the return type of 'split'
+smoothSplit n x ys = filter (\(s, _) -> smooth n (x : [s])) (split ys)
 
 
 
