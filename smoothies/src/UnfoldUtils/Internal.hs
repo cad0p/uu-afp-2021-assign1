@@ -26,7 +26,7 @@ unfoldTree next x = case next x of
                       Right (l, r) -> Node (unfoldTree next l) (unfoldTree next r)
 
 
-{-| The call iterate f x generates the infinite list [x, f x, f (f x), ...].
+{-| The call 'iterate' f x generates the infinite list [x, f x, f (f x), ...].
 -}
 iterate :: (a -> a) -> a -> [a]
 iterate f = unfoldr (\x -> Just (x, f x))
@@ -39,3 +39,8 @@ map f = unfoldr next
     next [] = Nothing
     next (x1 : xs) = Just(f x1, xs)
 
+
+{-| 'balanced' generates a balanced binary tree of the given height
+-}
+balanced :: Int -> Tree ()
+balanced n = unfoldTree (\x -> if x < n then Right (x + 1, x + 1) else Left ()) 0
