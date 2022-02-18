@@ -1,6 +1,6 @@
 module SmoothPermsTest where
 
-import SmoothPermsSlow
+-- import SmoothPermsSlow
 import SmoothPermsSlow.Internal (split, smooth)
 import Data.List (sort)
 
@@ -51,8 +51,8 @@ areEqual a b = sort a == sort b
 {-| 'permsLength' checks if the number of permutations is right
   the right number of permutations of a set of size n is n!
 -}
-permsLength :: [Int] -> Bool
-permsLength xs = permsCorrectLength xs == (length . perms) xs
+permsLength :: ([Int] -> [[Int]]) -> [Int] -> Bool
+permsLength f xs = permsCorrectLength xs == (length . f) xs
 
 permsCorrectLength :: [Int] -> Int
 permsCorrectLength = factorial . length
@@ -63,8 +63,8 @@ factorial n = product [1..n]
 {-| 'permsLengthElems' checks if all perms have the right length
   the right length is the length of 'xs'
 -}
-permsLengthElems :: [Int] -> Bool
-permsLengthElems xs = permsLengthElem (length xs) (perms xs)
+permsLengthElems :: ([Int] -> [[Int]]) -> [Int] -> Bool
+permsLengthElems f xs = permsLengthElem (length xs) (f xs)
 
 permsLengthElem :: Int -> [[Int]] -> Bool
 permsLengthElem _ [] = True
@@ -73,8 +73,8 @@ permsLengthElem n (x : xs) = length x == n && permsLengthElem n xs
 {-| 'permsElems' checks if all perms have all the elements
   compares each permutation with the original list 'xs'
 -}
-permsElems :: [Int] -> Bool
-permsElems xs = permsElem xs (perms xs)
+permsElems :: ([Int] -> [[Int]]) -> [Int] -> Bool
+permsElems f xs = permsElem xs (f xs)
 
 permsElem :: [Int] -> [[Int]] -> Bool
 permsElem _ [] = True
@@ -106,8 +106,8 @@ smoothPermIsSmooth n (x : xs) = smooth n x && smoothPermIsSmooth n xs
 
 {-| 'smoothPermsArePerms' checks if 'smoothPerms' outputs correct permutations
 -}
-smoothPermsArePerms :: Int -> [Int] -> Bool
-smoothPermsArePerms n xs = permsElem xs (smoothPerms n xs)
+smoothPermsArePerms :: (Int -> [Int] -> [[Int]]) -> Int -> [Int] -> Bool
+smoothPermsArePerms f n xs = permsElem xs (f n xs)
 
 
 {-| 'smoothPermsAreUnique' checks if 'smoothPerms' outputs unique permutations 
@@ -118,5 +118,5 @@ smoothPermsArePerms n xs = permsElem xs (smoothPerms n xs)
 {-| 'smoothPermsLength' checks if the length of output 
   is less than the length of the output of 'perms'
 -}
-smoothPermsLength :: Int -> [Int] -> Bool
-smoothPermsLength n xs = length (smoothPerms n xs) <= length (perms xs)
+smoothPermsLength :: (Int -> [Int] -> [[Int]]) -> Int -> [Int] -> Bool
+smoothPermsLength f n xs = length (f n xs) <= permsCorrectLength xs
