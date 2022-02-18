@@ -44,3 +44,17 @@ map f = unfoldr next
 -}
 balanced :: Int -> Tree ()
 balanced n = unfoldTree (\x -> if x < n then Right (x + 1, x + 1) else Left ()) 0
+
+
+{-| 'sized' generates any tree with the given number of nodes.
+  Each leaf in the returned tree should have a unique label.
+  EDIT: it's not working
+-}
+-- sized :: Int -> Tree Int
+-- sized n = unfoldTree sizedRec 0
+--   where
+--     sizedRec :: Int -> Either Int (Int, Int)
+--     sizedRec x 
+--           | x < n - 2 = Right (x + 2, x + 3)
+--           -- | x == n - 2 = Right (x + 1, ())
+--           | otherwise = Left (x + 1)
