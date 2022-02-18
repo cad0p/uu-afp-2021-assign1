@@ -30,6 +30,7 @@ library
       SmoothPerms.Internal
       SmoothPermsSlow
       SmoothPermsSlow.Internal
+      UnfoldUtils.Internal
   other-modules:
       Paths_smoothies
   hs-source-dirs:
