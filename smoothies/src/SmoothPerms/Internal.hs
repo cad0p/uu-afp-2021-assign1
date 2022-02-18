@@ -85,7 +85,7 @@ listToSmoothNode (x : xs) n ys = Node
   { perm      = x : xs
   , toPerm    = ys
   , children  = [
-    listToNode xs' ys' | (xs'', ys') <- smoothSplit n x ys
+    listToSmoothNode xs' n ys' | (xs'', ys') <- smoothSplit n x ys
                        , xs' <- [xs'' : x : xs]
   ]}
 
