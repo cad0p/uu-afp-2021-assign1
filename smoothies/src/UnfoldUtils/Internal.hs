@@ -1,7 +1,8 @@
 module UnfoldUtils.Internal where
 -- https://github.com/tweag/rules_haskell/issues/152
 
-import Prelude hiding (iterate)
+import Prelude hiding ( iterate
+                      , map )
 
 -- Recall the definition of unfoldr for lists,
 
@@ -25,6 +26,16 @@ unfoldTree next x = case next x of
                       Right (l, r) -> Node (unfoldTree next l) (unfoldTree next r)
 
 
+{-| The call iterate f x generates the infinite list [x, f x, f (f x), ...].
+-}
 iterate :: (a -> a) -> a -> [a]
 iterate f = unfoldr (\x -> Just (x, f x))
+
+
+
+map :: (a -> b) -> [a] -> [b]
+map f = unfoldr next
+  where
+    next [] = Nothing
+    next (x1 : xs) = Just(f x1, xs)
 
